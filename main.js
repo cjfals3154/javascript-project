@@ -18,9 +18,15 @@ let resetButton = document.getElementById("reset-button")
 let chances = 5
 let GameOver = false
 let chanceArea = document.getElementById("chanse-area")
+let history = []
+
 
 playButton.addEventListener('click', play)
 resetButton.addEventListener('click', reset)
+userInput.addEventListener("focus", function(){
+    userInput.value=""
+});
+
 //랜덤번호를 뽑는 장소
 function pickRandomNum(){
     computerNum = Math.floor(Math.random()*100)+1,
@@ -29,7 +35,16 @@ function pickRandomNum(){
 
 function play(){
     let userValue = userInput.value
+    
+    if(userValue < 1 || userValue > 100){
+        resultArea.textContent = "1부터 100까지의 숫자를 입력하세요"
+        return;
+    }
 
+    if(history.includes(userValue)){
+        resultArea.textContent = "이미 입력한 숫자입니다."
+        return;
+    }
     chances -- ;
     chanceArea.textContent = `"남은기회:${chances}번"`;
     console.log("chances", chances)
@@ -41,8 +56,11 @@ function play(){
         resultArea.textContent = "Down!"
     }else{
         resultArea.textContent = "정답!"
+        GameOver=true
     }
 
+    history.push(userValue)
+    console.log(history)
 
     if(chances < 1){
         GameOver=true
