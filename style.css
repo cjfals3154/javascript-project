@@ -1,0 +1,106 @@
+body{
+    margin: 0px;
+    background-image: url("/img/헤드셋.jpeg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.container{
+    background-color: white;
+    min-height: 100vh;
+    box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+}
+.nerbi{
+    margin-bottom: 10px;
+}
+.taps{
+    border: 1px solid grey;
+}
+.taps-area{
+    display: flex;
+    border-bottom: 1px solid grey;
+    position: relative;
+}
+.taps-area div{
+    padding: 0.5em;
+}
+.task-area{
+    display: flex;
+    justify-content: space-between;
+    padding: 1em;
+}
+.task-area button{
+    background-color: white;
+}
+#under-line{
+    position: absolute;
+    left: 0px;
+    height: 4px;
+    padding: 0px;
+    width: 52px;
+    top: 37px;
+    background-color: pink;
+}
+.drop{
+    text-decoration: line-through;
+}
+
+.taps-area div{
+    cursor: pointer;
+}
+/* body{
+    margin: 0;
+    background-image: url("/img/나무공책.jpeg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.container{
+    background-color: white;
+    min-height: 100vh;
+    box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset, rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset, rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+}
+.sec{
+    margin-bottom: 2em;
+}
+#task-button{
+    background-color:rgb(255, 228, 196);
+    border-radius: 5px;
+}
+.task-area{
+    border: 1px solid lightgray;
+}
+.task-taps{
+    display: flex;
+    border-bottom: 1px solid lightgray;
+    position: relative;
+}
+.task-taps div{
+    padding: 1em;
+}
+#under-line{
+    height: 4px;
+    background-color: burlywood;
+    position: absolute;
+    width: 60px;
+    left: 0px;
+    top: 53px;
+    padding: 0px;
+}
+.task-board{
+    display: flex;
+    justify-content: space-between;
+    padding: 1em;
+}
+#task-input{
+    border-radius: 5px;
+}
+#task-input:focus{
+    background-color: burlywood;
+}
+
+.task-done{
+    text-decoration: line-through;
+}
+
+.task-taps{
+    cursor: pointer;
+} */

@@ -1,66 +1,103 @@
-let computerNumber = 0;
-let playButton = document.getElementById("play-button")
-let userInput = document.getElementById("user-input")
-let resultText = document.getElementById("result-text")
-let numberReset = document.getElementById("number-reset")
-let chanceArea = document.getElementById("chance-area")
-let chance = 5
-let gameOver = false
-let history = []
+let taskInput = document.getElementById("task-input")
+let addButton = document.getElementById("add-button")
+let taps = document.querySelectorAll("#taps-div div")
+let taskList = [];
+let mode = 'all'
+let filterList = [];
 
-playButton.addEventListener("click", play)
-numberReset.addEventListener("click", reset)
-userInput.addEventListener("focus", function(){
-    userInput.value = ""
-})
+addButton.addEventListener("click", addTask)
 
-function pickNumber(){
-    computerNumber = Math.floor(Math.random() * 100) + 1 ;
-    console.log("정답은", computerNumber)
+for(let i=1; i<taps.length;i++){
+    taps[i].addEventListener("click", function(e){filter(e)})
 }
 
-function play(){
-    const userValue = userInput.value
+function addTask(){
+    let task = {
+        id : randomID(),
+        taskContent : taskInput.value,
+        isComplete : false
+    }
+    taskList.push(task)
+    console.log(taskList)
+    render()
+}
 
-    if(userValue < 1 || userValue > 100){
-        resultText.textContent = "1 ~ 100까지의 숫자를 입력하세요"
-        return;
+function render(){
+    let list = [];
+    if(mode == "all"){
+        list = taskList
+    }else if(mode == "ongoing" || mode == "done"){
+        list = filterList
     }
 
-    if(history.includes(userValue)){
-        resultText.textContent = "중복 된 숫자에요"
-        return
+    let resultTML = ''
+    for(let i=0; i<list.length;i++){
+        if(list[i].isComplete == true){
+            resultTML += `<div class="task-area">
+            <div class = "drop">${list[i].taskContent}</div>
+            <div>
+                <button onclick = "toggleComplete('${list[i].id}')">완료</button>
+                <button onclick = "toggleDel('${list[i].id}')">삭제</button>
+            </div>
+        </div>`
+        }else{
+            resultTML += `<div class="task-area">
+            <div>${list[i].taskContent}</div>
+            <div>
+                <button onclick = "toggleComplete('${list[i].id}')">완료</button>
+                <button onclick = "toggleDel('${list[i].id}')">삭제</button>
+            </div>
+        </div>`
+        }
+        
     }
 
-    chance --;
-    chanceArea.textContent = `남은찬스${chance}번`
-    history.push(userValue)
 
-    if(userValue < computerNumber){
-        resultText.textContent = "Up!!!!~"
-    } else if(userValue > computerNumber){
-        resultText.textContent = "Down~"
-    } else{
-        resultText.textContent = "정답!!!"
-        gameOver = true
-    }
+    document.getElementById("task-board").innerHTML = resultTML
+}
 
-    if(chance < 1){
-        gameOver = true
+function toggleComplete(id){
+    for(let i=0; i<taskList.length;i++){
+        if(taskList[i].id == id){
+            taskList[i].isComplete = !taskList[i].isComplete
+        }
     }
-    if(gameOver == true){
-        playButton.disabled = true
+    render()
+}
+
+function toggleDel(id){
+    for(let i=0;i<taskList.length;i++){
+        if(taskList[i].id == id){
+            taskList.splice(i,1)
+        }
+    }
+    render()
+}
+
+function filter(e){
+    mode = e.target.id
+    filterList = []; 
+        if(mode == "all"){
+            render();
+        }else if(mode == "ongoing"){
+            for(let i=0; i<taskList.length;i++){
+                if(taskList[i].isComplete == false){
+                    filterList.push(taskList[i])
+                }
+            }
+            render();
+            console.log(filterList)
+    }else if(mode == "done"){
+        for(let i =0; i<taskList.length; i++){
+            if(taskList[i].isComplete == true){
+                filterList.push(taskList[i])
+            }
+        }
+        render();
     }
 }
 
-function reset(){
-    pickNumber()
-    userInput.value = ""
-    resultText.textContent = "게임을 새로 시작하지"
-    chance = 5;
-    chanceArea.innerText = `남은 기회 :${chance}`
-    
+
+function randomID(){
+    return '_' + Math.random().toString(36).substr(2, 9);
 }
-
-pickNumber()
-
